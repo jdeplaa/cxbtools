@@ -15,13 +15,13 @@ CXBups is a program to calculate the remaining Cosmic X-ray Background
 flux after the exclusion of point sources up to a certain limit.
 
   Usage:
-    ./cxbups <flux-limit> <area>
+    ./cxbups flux-limit area
 
   Example:
     ./cxbups 3.E-15 0.0549
 
-The <flux-limit> is in erg/cm^2/s
-The <area> is in square degrees.
+The flux-limit is in erg/cm^2/s
+The area is in square degrees.
 
 ## cxbrnd
 CXBrnd is a program to calculate the remaining Cosmic X-ray Background
@@ -29,24 +29,24 @@ flux after the exclusion of point sources up to a certain limit through
 Monte Carlo simulations.
 
   Usage:
-    ./cxbrnd <flux-limit> <area> <niter>
+    ./cxbrnd flux-limit area niter
 
   Example:
     ./cxbrnd 3.E-15 0.0549 1000
 
-The <flux-limit> is in erg/cm^2/s
-The <area> is in square degrees.
+The flux-limit is in erg/cm^2/s
+The area is in square degrees.
 
 ## cxbopt
 CXBopt is a program to calculate optimal source extraction radius
 and flux cut for a certain annulus.
 
   Usage:
-    ./cxbopt <source-cnts> <backg-counts> <region>
+    ./cxbopt source-cnts backg-counts region
 
   Example:
     ./cxbopt 10000. 15000. 0.0549
 
-The <region> area is in square degrees.
+The region area is in square degrees.
 
 
