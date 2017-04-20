@@ -3,7 +3,7 @@ Tools to deal with (unresolved) point sources from the Cosmic X-ray Background (
 
 The CXB tools are written to help determining the contribution from unresolved X-ray sources to the 
 background spectrum in X-ray spectra. They were especially written for the EPIC instruments aboard 
-XMM-Newton. Please cite Mernier et al. (2015), DOI: http://dx.doi.org/10.1051/0004-6361/201425282 if 
+XMM-Newton. Please cite <a href="http://dx.doi.org/10.1051/0004-6361/201425282">Mernier et al. (2015)</a> if 
 you use this software for a scientific publication.
 
 See the reference or doc/cxb.pdf for an explanation of the method used in this software.
