@@ -1,0 +1,108 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{natbib}
+
+\title{Cosmic X-ray Background Estimation}
+\author{Jelle de Plaa}
+
+\newcommand{\apj}{ApJ}
+\newcommand{\aap}{A\&A}
+
+\begin{document}
+
+\maketitle
+
+\section{Unresolved point sources}
+
+An important component of the EPIC background is the contribution of unresolved point sources to the total X-ray background. The flux of this background can be estimated using the so called Log N - Log S curve derived from blank field data. This curve describes how many sources are expected at a certain flux level. The source function has the form of a derivative ($dN/dS$) and can be integrated to estimate the number of sources in a certain flux range:
+\begin{equation}
+N (>S) = \int_{S}^{\infty} \left( \frac{dN'}{dS'} \right) dS',
+\label{eq:src_number}
+\end{equation}
+where $N$ is the number of sources and $S$ is the low-flux limit.
+
+The most common bright unresolved point sources are AGN, but also galaxies and hot stars contribute. Lehmer et al. (\cite{lehmer2012}) find that AGN are the most dominant in terms of number counts, but in the 0.5-2 keV band, the galaxy counts become higher than the AGN counts below a few times 10$^{-17}$ erg cm$^{-2}$ s$^{-1}$ deg$^{-2}$. Based on the Chandra Deep Field South (CDF-S) data,
+Lehmer et al. (\cite{lehmer2012}) define the ($dN/dS$) relations for each source category as follows: 
+
+$  \frac{dN}{dS}^{\rm AGN} =  \left\{ 
+\begin{array}{l l}
+K^{\rm AGN} (S/S_{\rm ref})^{-\beta_1^{\rm AGN}}  & (S \le f^{\rm AGN}_{\rm b}) \\
+K^{\rm AGN} (f_{\rm b}/S_{\rm ref})^{\beta_2^{\rm AGN} - \beta_1^{\rm AGN}}(S/S_{\rm ref})^{-\beta_2^{\rm AGN}} &  (S > f^{\rm AGN}_{\rm b}) \\ \end{array} \right.  $
+\begin{eqnarray}
+\frac{dN}{dS}^{\rm gal} & = & K^{\rm gal} (S/S_{\rm
+ref})^{-\beta^{\rm gal}} \nonumber \\
+\frac{dN}{dS}^{\rm star} & = & K^{\rm star} (S/S_{\rm
+ref})^{-\beta^{\rm star}}.
+\label{eq:lognlogs}
+\end{eqnarray}
+Each relation describes a power law with a normalisation constant $K$ and slope $\beta$. Since the AGN ($dN/dS$) relation shows a break, there is an additional $\beta_2$ parameter and a break flux $f_b$. The reference flux $S_{ref} \equiv 10^{-14}$ erg cm$^{-2}$ s$^{-1}$. The best fit parameters
+for the studied energy bands are listed in Table 1 of Lehmer et al. (\cite{lehmer2012}).
+
+
+\subsection{Unresolved flux in EPIC}
+
+The relations above can be used to estimate the flux from sources that are not detected in an EPIC observation. It is common practice in extended source analysis to excise bright point sources from the EPIC data. However, not all sources have fluxes above the detection limit and a unresolved component remains. This also holds for the deepest Chandra observations. Hickox et al. (\cite{hickox2006}) found a detection limit of 1.4 10$^{-16}$ in a 1 Ms CDF-S observation and estimated the unresolved flux to be (3.4$\pm$1.7) 10$^{-12}$ erg cm$^{-2}$ s$^{-1}$ deg$^{-2}$ in the 2$-$8 keV band. Since Chandra has a much lower confusion limit and a narrow PSF, we do not expect EPIC to reach this detection limit even in a deep cluster observation. It is therefore not necessary to know the Log N - Log S curve below this flux limit to obtain a reasonable estimate for the unresolved flux.
+
+In the flux range from 1.4 10$^{-16}$ up to the EPIC flux limit, we can calulate the flux using the Log N - Log S relation. The total unresolved flux $\Omega_{\mathrm{unres}}$ for the 2$-$8 keV band is then calculated using:
+\begin{equation}
+\Omega_{\mathrm{unres}} = 3.4 \times 10^{-12} + \int_{1.4 \times 10^{-16}}^{S_{\mathrm{limit}}} S^{\prime} \left(\frac{dN}{dS^{\prime}}\right) dS^{\prime} \mathrm{~~ erg~cm^{-2}~s^{-1}~deg^{-2}}.
+\label{eq:flux}
+\end{equation}
+Using the equations in Eq.~\ref{eq:lognlogs} for $\frac{dN}{dS}$ in the integral above, the unresolved flux calculation is straight forward.
+
+The flux calculation in Eq.~\ref{eq:flux} has been implemented in a program called \verb+cxbups+. Given a flux limit above 1.4 10$^{-16}$, the program calculates the unresolved flux in the 2-8 keV band. This value can be used to constrain the normalisation of the power-law component describing the CXB background in cluster spectral fits. The assumed power-law index is $\Gamma = 1.4$ (see e.g. Moretti et al., \cite{moretti2003}). In reality, the power-law index may vary slightly between $\sim$1.4$-$1.5, given the uncertainties in the different surveys and modeling (Moretti et al., \cite{moretti2009}).
+
+
+\subsection{Variance on the unresolved flux estimation}
+
+The mean unresolved flux based on Chandra CDF data is relatively easy to calculate. The variance of the flux distribution across the sky is much harder to determine, because of cosmic variance \cite{moster2011}. The large scale structure of the universe causes the AGN distribution on the sky to be inhomogeneous. Therefore the scatter in the number of observed point sources is likely larger than the scatter caused by Poisson noise.
+
+The cosmic variance has been well studied in the optical with a focus on galaxy number counts. The relation between the galaxy and X-ray AGN distributions is, however, not obvious. Due to the limited area and depth of current X-ray surveys, the variance in the number of unobscured X-ray AGN in a certain field is still poorly known. Currently, there are only a few solutions to the CXB background problem. Either propose a deep Chandra observation of the area to resolve as much of the point sources as possible or take into account the possibility that the CXB power-law normalisation is considerably different ($>$10\%) from the mean.
+
+Since proposing deep Chandra observations is not always feasible, we suggest to leave the normalisation of the CXB power-law free in the fit. This may introduce bias, but it also increases the statistical error bars on the fitted parameters. The uncertainty in the background is then mostly taken into account. An observer still needs to be careful though before claiming accurate values for low surface-brightness areas. 
+
+
+\subsection{Optimisation of point source excision}
+
+For a given extraction region, an annulus around a cluster, for example, the optimal point source excision radius ($r_s$) and flux cut ($S_{\mathrm{cut}}$) can be calculated. Since the region that is excised due to the presence of the point source also removes cluster counts, the signal to noise ratio is affected. As long as the point sources that are removed are sufficiently bright, the excision of a point source removes more background than signal, and thus affects the signal-to-noise ratio positively. On the other hand, excluding more point sources diminishes the surface area of the extraction region affecting the signal-to-noise negatively. For every extraction region, in principle, an optimum can be found.
+
+Let us consider a extraction region with area $A$. Within the area, we excise point sources above a flux cut $S_{\mathrm{cut}}$ using a radius ($r_s$). The remaining area $A_{\mathrm{eff}}$ is:
+\begin{equation}
+A_{\mathrm{eff}} = A \left( 1 - \pi r_s^2 \int_{S_{\mathrm{cut}}}^{\infty} \left(\frac{dN}{dS}\right) dS \right).
+\end{equation}   
+The signal-to-noise ratio ($SNR$) in the remaining area can be generally written as:
+\begin{equation}
+SNR = \frac{C}{\sqrt{C + B}},
+\label{eq:snr}
+\end{equation}
+where $C$ is the flux of the cluster and $B$ is the background. The flux of the cluster depends on the area of the extraction region: $C = C^{*} A_{\mathrm{eff}}$, where $C^{*}$ is the local surface brightness of the source. The background $B$ consists of multiple components. Since we consider the $2-8$ keV band, the most important components are the 'instrumental' hard-particle background and the soft-proton component. We call this total background flux $I$. In addition, there is background emission from unresolved point sources and residual background scattered from the PSF tail of the excised point sources. In total, the background flux can be written as:
+\begin{equation}
+B = I + \int_{0}^{S_{\mathrm{cut}}} S \left(\frac{dN}{dS}\right) dS + \left(1 - EEF(r_s)\right) \int_{S_{\mathrm{cut}}}^{\infty} S \left(\frac{dN}{dS}\right) dS,
+\label{eq:backg} 
+\end{equation}
+where the $EEF(r_s)$ function is the encircled energy fraction of the PSF as a function of radius.
+This function is described in the PN in-flight PSF calibration documentation\footnote{http://xmm2.esac.esa.int/docs/documents/CAL-TN-0029-1-0.ps.gz}. This calibration is dated and a more recent study by Read et al. (\cite{read2011}) may give a more accurate result. However, the Read model takes more time to implement. Further tests may be done to determine whether a small increase in precision is important enough to justify the time investment.
+
+\begin{figure}[t]
+\includegraphics[width=0.73\textwidth,angle=-90]{lowback_0.0549.ps}
+\caption{The calculated signal-to-noise ratio as a function of excision radius and flux 
+cut, ignoring instrumental background. A clear optimum is visible around 20$^{\prime\prime}$.}
+\label{fig:example}
+\end{figure}
+
+
+By combining the relation for the source flux, background flux (Eq.~\ref{eq:backg}), and the relation for the signal-to-noise (Eq.~\ref{eq:snr}), one obtains:
+\begin{equation}
+\newcommand{\one}{C^{*} \sqrt{A \left( 1 - \pi r_{s}^{2} \int_{S_{\mathrm{cut}}}^{\infty} \left(\frac{dN}{dS}\right) dS \right)}}
+\newcommand{\two}{\sqrt{C^* + I + \int_{0}^{S_{\mathrm{cut}}} S \left(\frac{dN}{dS}\right) dS + \left(1 - EEF(r_s)\right) \int_{S_{\mathrm{cut}}}^{\infty} S \left( \frac{dN}{dS} \right) dS}}
+SNR = \frac{\one}{\two}
+\end{equation}
+In Fig.~\ref{fig:example} an example is shown for a low surface-brightness source without instrumental background. The optimum due to the source excision radius and flux cut is clearly visible in the image.
+
+
+\bibliographystyle{plain}
+\bibliography{cxb}
+
+\end{document}
