@@ -1,0 +1,5 @@
+This software uses the following libraries:
+
+PGPLOT: http://www.astro.caltech.edu/~tjp/pgplot/
+GNU Scientific Library: https://www.gnu.org/software/gsl/
+Xlib X11 library
