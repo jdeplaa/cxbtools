@@ -65,6 +65,8 @@ int main (int argc, char *argv[]) {
   
   tflx = (double *) malloc(sizeof(double[niter]));
   
+  dns = 1.E-20;
+
   for (i=0;i<niter;i++) {
   
     /* Determine number of sources in area */
